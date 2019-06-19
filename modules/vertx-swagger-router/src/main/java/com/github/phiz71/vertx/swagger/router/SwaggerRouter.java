@@ -9,10 +9,7 @@ import io.swagger.models.SecurityRequirement;
 import io.swagger.models.Swagger;
 import io.vertx.core.MultiMap;
 import io.vertx.core.buffer.Buffer;
-import io.vertx.core.eventbus.DeliveryOptions;
-import io.vertx.core.eventbus.EventBus;
-import io.vertx.core.eventbus.Message;
-import io.vertx.core.eventbus.ReplyException;
+import io.vertx.core.eventbus.*;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
@@ -245,6 +242,11 @@ public class SwaggerRouter {
             }
         } else {
             response.setStatusCode(HttpResponseStatus.INTERNAL_SERVER_ERROR.code());
+        }
+        if (ReplyFailure.TIMEOUT == cause.failureType()) {
+            // can't touch the response anymore. :wave:
+            vertxLogger.error("Router saw a timeout. Giving up on the response");
+            return;
         }
         response.end();
     }

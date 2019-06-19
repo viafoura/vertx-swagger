@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.github.phiz71</groupId>
     <artifactId>vertx-swagger-parent</artifactId>
-    <version>1.5.0</version>
+    <version>1.6.0-SNAPSHOT</version>
     <relativePath>../..</relativePath>
   </parent>
 
@@ -33,7 +33,7 @@
 
   <properties>
     <java.version>1.8</java.version>
-    <vertx.version>3.5.0</vertx.version>
+    <vertx.version>3.6.3</vertx.version>
     <swagger-parser.version>1.0.26</swagger-parser.version>
   </properties>
 
@@ -45,7 +45,7 @@
     </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-rx-java</artifactId>
+      <artifactId>vertx-rx-java2</artifactId>
       <version>${vertx.version}</version>
     </dependency>
     <dependency>

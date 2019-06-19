@@ -4,14 +4,8 @@ import io.vertx.core.Handler;
 import io.vertx.core.MultiMap;
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
-import io.vertx.core.http.HttpConnection;
-import io.vertx.core.http.HttpFrame;
-import io.vertx.core.http.HttpMethod;
-import io.vertx.core.http.HttpServerFileUpload;
-import io.vertx.core.http.HttpServerRequest;
-import io.vertx.core.http.HttpServerResponse;
-import io.vertx.core.http.HttpVersion;
-import io.vertx.core.http.ServerWebSocket;
+import io.vertx.core.http.*;
+import io.vertx.core.http.impl.HttpUtils;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.NetSocket;
@@ -23,7 +17,7 @@ import io.vertx.ext.web.Session;
 import io.vertx.ext.web.impl.RouterImpl;
 import io.vertx.ext.web.impl.RoutingContextImpl;
 import io.vertx.ext.web.impl.Utils;
-import io.vertx.ext.web.sstore.impl.SessionImpl;
+import io.vertx.ext.web.sstore.impl.LocalSessionStoreImpl;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -140,14 +134,14 @@ public class InterceptableRoutingContextImplTest {
     @Test
     public void testOthers() {
         Assert.assertEquals(mountPoint, contextToTest.mountPoint());
-        Assert.assertEquals(Utils.normalizePath(mountPoint), contextToTest.normalisedPath());
+        Assert.assertEquals(HttpUtils.normalizePath(mountPoint), contextToTest.normalisedPath());
         Assert.assertEquals(null, contextToTest.currentRoute());
         Assert.assertEquals(-1, contextToTest.statusCode());
         Assert.assertEquals(null, contextToTest.failure());
         Assert.assertEquals(myVertx, contextToTest.vertx());
         Assert.assertEquals(false, contextToTest.failed());
 
-        Session sess = new SessionImpl();
+        Session sess = new LocalSessionStoreImpl().createSession(1);
         contextToTest.setSession(sess);
         Assert.assertEquals(sess, contextToTest.session());
     }
@@ -184,6 +178,11 @@ class TestHttpServerRequest implements HttpServerRequest {
     @Override
     public HttpServerRequest resume() {
         // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public HttpServerRequest fetch(final long l) {
         return null;
     }
 
@@ -245,6 +244,11 @@ class TestHttpServerRequest implements HttpServerRequest {
     public String host() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public long bytesRead() {
+        return 0;
     }
 
     @Override
@@ -373,6 +377,11 @@ class TestHttpServerRequest implements HttpServerRequest {
     @Override
     public HttpConnection connection() {
         // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public HttpServerRequest streamPriorityHandler(final Handler<StreamPriority> handler) {
         return null;
     }
 

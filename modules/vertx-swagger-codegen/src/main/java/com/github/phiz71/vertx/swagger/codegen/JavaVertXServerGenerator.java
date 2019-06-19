@@ -129,7 +129,7 @@ public class JavaVertXServerGenerator extends AbstractJavaCodegen {
      * @return the friendly name for the generator
      */
     public String getName() {
-        return "java-vertx";
+        return "java-vertx-rx2";
     }
 
     /**

@@ -16,7 +16,6 @@ import io.vertx.ext.web.Session;
 import io.vertx.ext.web.impl.RouterImpl;
 import io.vertx.ext.web.impl.RoutingContextImpl;
 import io.vertx.ext.web.impl.Utils;
-import io.vertx.ext.web.sstore.impl.SessionImpl;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;

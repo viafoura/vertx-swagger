@@ -1,5 +1,6 @@
 package com.github.phiz71.vertx.swagger.router.auth;
 
+import io.vertx.codegen.annotations.Nullable;
 import io.vertx.core.Handler;
 import io.vertx.core.MultiMap;
 import io.vertx.core.Vertx;
@@ -60,6 +61,15 @@ public class InterceptableRoutingContext implements RoutingContext {
             this.failedCallback.run();
         } else {
             this.inner.fail(throwable);
+        }
+    }
+
+    @Override
+    public void fail(final int i, final Throwable throwable) {
+        if (this.failedCallback != null) {
+            this.failedCallback.run();
+        } else {
+            this.inner.fail(i, throwable);
         }
     }
 
@@ -188,6 +198,11 @@ public class InterceptableRoutingContext implements RoutingContext {
     @Override
     public Cookie removeCookie(String name) {
         return this.inner.removeCookie(name);
+    }
+
+    @Override
+    public @Nullable Cookie removeCookie(final String s, final boolean b) {
+        return this.inner.removeCookie(s, b);
     }
 
     @Override

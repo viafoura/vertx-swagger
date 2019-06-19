@@ -1,8 +1,6 @@
 package com.github.phiz71.vertx.swagger.router.auth;
 
 import com.github.phiz71.vertx.swagger.router.SwaggerRouter;
-import com.github.phiz71.vertx.swagger.router.auth.ApiKeyAuthHandler.Location;
-import io.swagger.models.auth.ApiKeyAuthDefinition;
 import io.swagger.models.auth.SecuritySchemeDefinition;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
@@ -49,11 +47,6 @@ public class SwaggerAuthHandlerFactory {
         SecuritySchemeDefinition securityScheme = this.securitySchemes.get(name);
         if(securityScheme != null) {
 	        switch (securityScheme.getType()) {
-	            case "apiKey":
-	                ApiKeyAuthDefinition apiKeyAuthDefinition = (ApiKeyAuthDefinition) securityScheme;
-	                Location apiKeyLocation = Location.valueOf(apiKeyAuthDefinition.getIn().name());
-	                authHandler = ApiKeyAuthHandler.create(authProvider, apiKeyLocation, apiKeyAuthDefinition.getName());
-	                break;
 	            case "basic":
 	                authHandler = BasicAuthHandler.create(authProvider);
 	                break;
